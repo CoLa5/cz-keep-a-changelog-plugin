@@ -31,11 +31,7 @@ repos:
     rev: v4.10.0
     hooks:
       - id: commitizen
-        additional_dependencies:
-          - .
       - id: commitizen-branch
-        additional_dependencies:
-          - .
         stages: [pre-push]
 
   - repo: https://github.com/astral-sh/uv-pre-commit
