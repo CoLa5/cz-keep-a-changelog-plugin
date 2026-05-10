@@ -12,7 +12,7 @@ Features:
 from collections import OrderedDict
 from collections.abc import Iterable
 import re
-from typing import Any
+from typing import Any, TypedDict
 
 from commitizen import git
 from commitizen.config.base_config import BaseConfig
@@ -29,6 +29,12 @@ from commitizen.defaults import MINOR
 from commitizen.defaults import PATCH
 from commitizen.question import CzQuestion
 import jinja2 as j2
+
+
+class CzPluginSettings(TypedDict, total=False):
+    """Plugin Settings."""
+
+    issue_url_template: str
 
 
 class CzKeepAChangelogPlugin(ConventionalCommitsCz):
@@ -91,8 +97,8 @@ class CzKeepAChangelogPlugin(ConventionalCommitsCz):
             config: The base config of `commitizen`.
         """
         super().__init__(config)
-        self.kac_settings: dict[str, str] = self.config.settings.get(
-            "keep_a_changelog", {}
+        self.plugin_settings: CzPluginSettings = self.config.settings.get(
+            "cz_keep_a_changelog_plugin", {}
         )
 
     def changelog_hook(
@@ -148,9 +154,9 @@ class CzKeepAChangelogPlugin(ConventionalCommitsCz):
         Returns:
             A customized message or a falsy value to ignore the commit.
         """
-        if "issue_url_template" in self.kac_settings:
+        if "issue_url_template" in self.plugin_settings:
             issue_url_template = j2.Template(
-                self.kac_settings["issue_url_template"]
+                self.plugin_settings["issue_url_template"]
             )
 
             def sub_issue_num(match: re.Match[str]) -> str:
