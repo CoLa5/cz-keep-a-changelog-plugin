@@ -34,7 +34,7 @@ class CzPluginSettings(TypedDict, total=False):
 class CzKeepAChangelogPlugin(ConventionalCommitsCz):
     """'Keep a Changelog'-Conventional Commits-Plugin."""
 
-    bump_pattern: str | None = r"^(\w+)(\(.+\))?!?):"
+    bump_pattern: str | None = r"^(\w+(\(.+\))?!?):"
     bump_map: dict[str, str] | None = OrderedDict(
         (
             (r"^.+!$", MAJOR),
