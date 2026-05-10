@@ -80,7 +80,7 @@ class CzKeepAChangelogPlugin(ConventionalCommitsCz):
 
     template_header: str = "CHANGELOG_HEADER.md.j2"
     template_loader: j2.BaseLoader = j2.PackageLoader(
-        "cz_keep_a_changelog", "templates"
+        "cz_keep_a_changelog_plugin", "templates"
     )
     template_extras: dict[str, Any] = {}
 
