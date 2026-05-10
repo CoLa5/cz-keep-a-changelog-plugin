@@ -1,0 +1,94 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_install_hook_types: [pre-commit, commit-msg, pre-push]
+default_stages: [pre-commit, pre-push, manual]
+default_language_version:
+  python: python3.10
+repos:
+  - repo: meta
+    hooks:
+      - id: check-useless-excludes
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-toml
+      - id: debug-statements
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: name-tests-test
+      - id: no-commit-to-branch
+        args: [--branch, main]
+        stages: [pre-commit]
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.10.0
+    hooks:
+      - id: commitizen
+        additional_dependencies:
+          - .
+      - id: commitizen-branch
+        additional_dependencies:
+          - .
+        stages: [pre-push]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.8.12
+    hooks:
+      - id: uv-lock
+      - id: uv-export
+        args:
+          ["--frozen", "--no-dev", "--output-file=requirements.txt", "--quiet"]
+      - id: uv-export
+        args: ["--frozen", "--output-file=requirements-dev.txt", "--quiet"]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.10
+    hooks:
+      # Linter
+      - id: ruff-check
+        types_or: [python, pyi, pyproject]
+        args: [--fix]
+      # Formatter
+      - id: ruff-format
+        types_or: [python, pyi]
+
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.45.0
+    hooks:
+      - id: typos
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.20.0"
+    hooks:
+      - id: mypy
+        args:
+          - --config-file=./pyproject.toml
+        files: ^cz_keep_a_changelog_plugin/.*\.py$
+        additional_dependencies:
+          - commitizen
+          - jinja2
+
+  - repo: local
+    hooks:
+      - id: backticked-bool-none-in-docstrings
+        name: Require `None` / `True` / `False` (backticked) in """-docstrings
+        language: pygrep
+        entry: '(?s)"""(?:(?!""").)*?(?<!`)(None|True|False)(?!`)(?:(?!""").)*?"""'
+        files: ^cz_keep_a_changelog_plugin/.*\.py$
+      - id: backticked-strings-in-docstrings
+        name: Require `"..."` (backticked strings) in """-docstrings
+        language: pygrep
+        entry: '(?s)"""(?:(?!""").)*?(?<!`)"[^"\n]+"(?!`)(?:(?!""").)*?"""'
+        files: ^cz_keep_a_changelog_plugin/.*\.py$
+      - id: no-print-in-sources
+        name: Ensure no print() statement appears in sources
+        language: pygrep
+        entry: print\(
+        files: ^cz_keep_a_changelog_plugin/.*\.py$
