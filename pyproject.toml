@@ -69,6 +69,7 @@ change_type_order = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Secu
 changelog_incremental = true
 changelog_merge_prerelease = true
 major_version_zero = true
+template = "./cz_keep_a_changelog_plugin/templates/CHANGELOG.md.j2"
 update_changelog_on_bump = true
 
 [tool.mypy]
