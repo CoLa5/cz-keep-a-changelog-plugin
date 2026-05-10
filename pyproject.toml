@@ -1,0 +1,157 @@
+[project]
+name = "cz-keep-a-changelog-plugin"
+version = "0.1.0"
+description = "Full compliance with Keep a Changelog"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+
+authors = [
+    { name = "Corvin Lasogga", email = "c.lasogga@gmail.com" }
+]
+
+keywords = ["commitizen", "cz", "conventional", "commits", "git", "keep-a-changelog"]
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development :: Documentation",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Software Development :: Version Control",
+  "Topic :: Software Development :: Version Control :: Git",
+  "Topic :: Utilities",
+  "Typing :: Typed",
+]
+
+dependencies = [
+    "commitizen>=4.15.1",
+    "jinja2>=3.1.6",
+]
+
+[dependency-groups]
+dev = [
+    "prek>=0.3.13",
+    "ruff>=0.15.12",
+]
+
+[project.entry-points."commitizen.plugin"]
+cz_keep_a_changelog_plugin = "cz_keep_a_changelog_plugin:CzKeepAChangelogPlugin"
+
+[project.urls]
+Homepage = "https://cola5.github.io/cz-keep-a-changelog-plugin/"
+Code = "https://github.com/CoLa5/cz-keep-a-changelog-plugin"
+"Issue tracker" = "https://github.com/CoLa5/cz-keep-a-changelog-plugin/issues"
+
+[build-system]
+requires = ["uv_build>=0.8.12,<0.9.0"]
+build-backend = "uv_build"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_provider = "uv"
+version_scheme = "pep440"
+breaking_change_exclamation_in_title = true
+bump_message = "bump: Bump version $current_version -> $new_version"
+changelog_incremental = true
+changelog_merge_prerelease = true
+major_version_zero = true
+update_changelog_on_bump = true
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+
+[tool.ruff]
+line-length = 80
+indent-width = 4
+target-version = "py310"
+fix = true
+
+[tool.ruff.lint]
+preview = true
+select = [
+  # flake8-annotations
+  "ANN",
+  # flake8-bugbear
+  "B",
+  # pydocstyle
+  "D",
+  # pydoclint
+  "DOC",
+  # pycodestyle
+  "E",
+  # Pyflakes
+  "F",
+  # flake8-future-annotations
+  "FA",
+  # flake8-fixme
+  "FIX",
+  # flake8-logging-format
+  "G",
+  # isort
+  "I",
+  # flake8-logging
+  "LOG",
+  # flake8-pytest-style
+  "PT",
+  # Ruff-specific rules
+  "RUF",
+  # flake8-simplify
+  "SIM",
+  # pyupgrade
+  "UP",
+]
+extend-ignore = [
+  # missing docstring in magic method
+  "D105",
+  # missing docstring in __init__
+  "D107",
+  # missing blank line after summary
+  "D205",
+]
+fixable = ["ALL"]
+unfixable = []
+
+# Source: https://github.com/PyCQA/isort/blob/main/isort/profiles.py#L22
+[tool.ruff.lint.isort]
+case-sensitive = true
+force-single-line = true
+force-sort-within-sections = true
+# lexicographical = true
+single-line-exclusions = ["collections.abc", "typing", "typing_extensions"]
+order-by-type = false
+# group-by-package = true
+
+[tool.ruff.lint.per-file-ignores]
+"test/**" = ["D", "DOC"]  # Do not require docstrings in tests
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.typos.files]
+extend-exclude = ["requirements-dev.txt"]
+
+[tool.uv.build-backend]
+module-name = "cz_keep_a_changelog_plugin"
+module-root = ""
+source_include = ["CHANGELOG.md", "LICENSE", "README.md"]
