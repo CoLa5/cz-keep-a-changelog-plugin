@@ -8,7 +8,8 @@
 
 # cz-keep-a-changelog-plugin
 
-Adds full compliance with
+Adds full compliance to
+[commitizen](https://commitizen-tools.github.io/commitizen/) with
 [Keep a Changelog v1.1.0](https://keepachangelog.com/en/1.1.0/)
 
 ## Features
