@@ -1,10 +1,4 @@
-"""'Keep a Changelog'-Conventional Commits-Plugin.
-
-Features:
-- Completes the map of Conventional Commits to "Keep a Changelog"-types of
-  changes.
-- Replaces issue numbers by a markdown link.
-"""
+"""'Keep a Changelog'-Conventional Commits-Plugin."""
 
 # mypy: disable-error-code=assignment
 # ruff: noqa: RUF012
