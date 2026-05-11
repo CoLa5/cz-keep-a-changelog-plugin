@@ -160,7 +160,7 @@ wheels = [
 
 [[package]]
 name = "cz-keep-a-changelog-plugin"
-version = "0.0.2"
+version = "0.0.3"
 source = { editable = "." }
 dependencies = [
     { name = "commitizen" },
