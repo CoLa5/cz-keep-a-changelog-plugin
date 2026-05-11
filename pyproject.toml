@@ -35,13 +35,15 @@ classifiers = [
 ]
 
 dependencies = [
-    "commitizen>=4.15.1",
+    "commitizen==4.10.0",
     "jinja2>=3.1.6",
 ]
 
 [dependency-groups]
 dev = [
-    "prek>=0.3.13",
+    "pre-commit>=4.6.0",
+    "pre-commit-uv>=4.2.1",
+    "pytest>=9.0.3",
     "ruff>=0.15.12",
 ]
 
@@ -156,5 +158,5 @@ extend-exclude = ["requirements-dev.txt"]
 
 [tool.uv.build-backend]
 module-name = "cz_keep_a_changelog_plugin"
-module-root = ""
+module-root = "."
 source_include = ["CHANGELOG.md", "LICENSE", "README.md"]

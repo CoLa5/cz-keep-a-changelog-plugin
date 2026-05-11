@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://mit-license.org/2026)
-[![prek](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/j178/prek/master/docs/assets/badge-v0.json)](https://github.com/j178/prek)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/CoLa5/cz-keep-a-changelog-plugin/blob/main/.pre-commit-config.yaml)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v1.json)](https://github.com/charliermarsh/ruff)
 [![Checks: flake-8, isort, mypy](https://img.shields.io/badge/Checks-flake--8,_isort,_mypy-green.svg)](https://github.com/CoLa5/cz-keep-a-changelog-plugin/blob/main/.pyproject.toml)
 
