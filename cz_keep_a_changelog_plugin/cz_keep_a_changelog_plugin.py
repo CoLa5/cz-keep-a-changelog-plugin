@@ -82,7 +82,6 @@ class CzKeepAChangelogPlugin(ConventionalCommitsCz):
     template_loader: j2.BaseLoader = j2.PackageLoader(
         "cz_keep_a_changelog_plugin", "templates"
     )
-    template_extras: dict[str, Any] = {}
 
     def __init__(self, config: BaseConfig) -> None:
         """Initializes the class.
