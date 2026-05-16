@@ -1,6 +1,6 @@
 [project]
 name = "cz-keep-a-changelog-plugin"
-version = "0.0.3"
+version = "0.0.4"
 description = "Full compliance with Keep a Changelog"
 readme = "README.md"
 requires-python = ">=3.10"
