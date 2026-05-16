@@ -41,10 +41,11 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "mypy>=2.1.0",
     "pre-commit>=4.6.0",
     "pre-commit-uv>=4.2.1",
     "pytest>=9.0.3",
-    "ruff>=0.15.12",
+    "ruff>=0.15.13",
 ]
 
 [project.entry-points."commitizen.plugin"]
@@ -79,10 +80,18 @@ python_version = "3.10"
 strict = true
 
 [tool.ruff]
+fix = true
 line-length = 80
 indent-width = 4
 target-version = "py310"
-fix = true
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+line-ending = "lf"
+indent-style = "space"
+quote-style = "double"
+skip-magic-trailing-comma = false
 
 [tool.ruff.lint]
 preview = true
@@ -144,14 +153,6 @@ order-by-type = false
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-skip-magic-trailing-comma = false
-line-ending = "auto"
-docstring-code-format = true
-docstring-code-line-length = "dynamic"
 
 [tool.typos.files]
 extend-exclude = ["requirements-dev.txt"]
