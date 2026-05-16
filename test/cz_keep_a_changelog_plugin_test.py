@@ -1,12 +1,26 @@
 """Test of Plugin."""
 
 from collections import OrderedDict
+import pathlib
 import re
 
 from commitizen.config import BaseConfig
 import pytest
 
 from cz_keep_a_changelog_plugin import CzKeepAChangelogPlugin
+
+HERE: pathlib.Path = pathlib.Path(__file__).parent.resolve()
+
+
+@pytest.fixture
+def changelog_header() -> str:
+    return (
+        HERE
+        / ".."
+        / "cz_keep_a_changelog_plugin"
+        / "templates"
+        / "CHANGELOG_HEADER.md.j2"
+    ).read_text(encoding="utf-8")
 
 
 def test_bump_map(config: BaseConfig) -> None:
@@ -41,6 +55,52 @@ def test_bump_pattern(config: BaseConfig) -> None:
     plugin = CzKeepAChangelogPlugin(config)
     assert plugin.bump_pattern == r"^(\w+(\(.+\))?!?):"
     assert isinstance(re.compile(plugin.bump_pattern), re.Pattern)
+
+
+@pytest.mark.parametrize(
+    ("changelog_out", "add_header"),
+    [
+        (
+            "## [0.0.1] - 2026-05-10\n"
+            "\n"
+            "### Added\n"
+            "\n"
+            "- Name plugin settings properly\n"
+            "- Add plugin\n"
+            "\n"
+            "### Fixed\n"
+            "\n"
+            "- Fix template loader location\n",
+            False,
+        ),
+        (
+            "## [0.0.1] - 2026-05-10\n"
+            "\n"
+            "### Added\n"
+            "\n"
+            "- Name plugin settings properly\n"
+            "- Add plugin\n"
+            "\n"
+            "### Fixed\n"
+            "\n"
+            "- Fix template loader location\n",
+            True,
+        ),
+    ],
+)
+def test_changelog_hook(
+    changelog_out: str,
+    add_header: bool,
+    changelog_header: str,
+    config: BaseConfig,
+) -> None:
+    plugin = CzKeepAChangelogPlugin(config)
+    new_changelog_out = plugin.changelog_hook(
+        (changelog_header + "\n" if add_header else "") + changelog_out,
+        changelog_out,
+    )
+    assert changelog_header in new_changelog_out
+    assert new_changelog_out == (changelog_header + "\n" + changelog_out)
 
 
 def test_commit_parser(config: BaseConfig) -> None:
