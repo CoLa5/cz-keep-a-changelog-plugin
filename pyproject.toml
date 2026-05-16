@@ -159,5 +159,5 @@ extend-exclude = ["requirements-dev.txt"]
 
 [tool.uv.build-backend]
 module-name = "cz_keep_a_changelog_plugin"
-module-root = "."
+module-root = ""
 source_include = ["CHANGELOG.md", "LICENSE", "README.md"]
