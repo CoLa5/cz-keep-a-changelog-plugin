@@ -5,7 +5,6 @@
 
 from collections import OrderedDict
 from collections.abc import Iterable
-import re
 from typing import Any, TypedDict
 
 from commitizen import git
@@ -23,6 +22,8 @@ from commitizen.defaults import MINOR
 from commitizen.defaults import PATCH
 from commitizen.question import CzQuestion
 import jinja2 as j2
+
+from cz_keep_a_changelog_plugin.utils import replace_github_issues
 
 
 class CzPluginSettings(TypedDict, total=False):
@@ -151,16 +152,9 @@ class CzKeepAChangelogPlugin(ConventionalCommitsCz):
             issue_url_template = j2.Template(
                 self.plugin_settings["issue_url_template"]
             )
-
-            def sub_issue_num(match: re.Match[str]) -> str:
-                issue_num = match.group(1)
-                issue_url = issue_url_template.render(issue=issue_num)
-                return f"[#{issue_num:s}]({issue_url:s})"
-
-            message["message"] = re.sub(
-                r"#(\d+)", sub_issue_num, message["message"]
+            message["message"] = replace_github_issues(
+                message["message"], issue_url_template
             )
-
         return message
 
     def questions(self) -> list[CzQuestion]:

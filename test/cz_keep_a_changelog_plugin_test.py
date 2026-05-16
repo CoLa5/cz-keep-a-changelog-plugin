@@ -3,7 +3,9 @@
 from collections import OrderedDict
 import pathlib
 import re
+from typing import Any
 
+from commitizen import git
 from commitizen.config import BaseConfig
 import pytest
 
@@ -101,6 +103,42 @@ def test_changelog_hook(
     )
     assert changelog_header in new_changelog_out
     assert new_changelog_out == (changelog_header + "\n" + changelog_out)
+
+
+@pytest.mark.parametrize(
+    ("message", "parsed_message", "commit"),
+    [
+        (
+            {
+                "message": (
+                    "feat: Issue #123, [#123](www.example.com), "
+                    "[link](www.example.com/#123)"
+                )
+            },
+            {
+                "message": (
+                    "feat: Issue [#123](https://github.com/CoLa5/cz-keep-a-changelog-plugin/issues/123), "  # noqa: E501
+                    "[#123](www.example.com), [link](www.example.com/#123)"
+                )
+            },
+            git.GitCommit(
+                rev="3278ffc707aaacc6f78c3d46d2130da0cfff9e3b",
+                title="Issue 123",
+            ),
+        )
+    ],
+)
+def test_changelog_message_builder_hook(
+    message: dict[str, Any],
+    parsed_message: dict[str, Any],
+    commit: git.GitCommit,
+    config: BaseConfig,
+) -> None:
+    plugin = CzKeepAChangelogPlugin(config)
+    message = plugin.changelog_message_builder_hook(message, commit)
+    for key in parsed_message:
+        assert key in message
+        assert message[key] == parsed_message[key]
 
 
 def test_commit_parser(config: BaseConfig) -> None:
