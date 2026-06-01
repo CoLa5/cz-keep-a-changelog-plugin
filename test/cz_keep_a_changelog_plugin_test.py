@@ -155,7 +155,11 @@ def test_questions(config: BaseConfig) -> None:
     plugin = CzKeepAChangelogPlugin(config)
     questions = plugin.questions()
     assert isinstance(questions, list)
-    assert isinstance(questions[0], dict)
+    for q in questions:
+        assert isinstance(q, dict)
+        for key in ("type", "name", "message"):
+            assert key in q
+            assert len(q[key]) > 0
 
 
 def test_choices_all_have_keyboard_shortcuts(config: BaseConfig) -> None:
