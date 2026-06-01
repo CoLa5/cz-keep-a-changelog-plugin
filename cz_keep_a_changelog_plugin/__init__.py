@@ -13,6 +13,9 @@
 from cz_keep_a_changelog_plugin.cz_keep_a_changelog_plugin import (
     CzKeepAChangelogPlugin,
 )
+from cz_keep_a_changelog_plugin.cz_keep_a_changelog_plugin import (
+    CzPluginSettings,
+)
 from cz_keep_a_changelog_plugin.version import (
     CZ_KEEP_A_CHANGELOG_PLUGIN_VERSION,
 )
@@ -23,6 +26,7 @@ __version__ = CZ_KEEP_A_CHANGELOG_PLUGIN_VERSION
 
 __all__ = (
     "CzKeepAChangelogPlugin",
+    "CzPluginSettings",
     "__license__",
     "__version__",
 )
