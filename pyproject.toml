@@ -77,7 +77,6 @@ breaking_change_exclamation_in_title = true
 bump_message = "bump: Bump version $current_version -> $new_version"
 change_type_map = {"feat" = "Added", "fix" = "Fixed", "perf" = "Changed", "refactor" = "Changed", "revert" = "Removed"}
 change_type_order = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"]
-changelog_incremental = true
 changelog_merge_prerelease = true
 major_version_zero = true
 template = "./cz_keep_a_changelog_plugin/templates/CHANGELOG.md.j2"
