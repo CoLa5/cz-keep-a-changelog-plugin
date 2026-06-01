@@ -1,14 +1,14 @@
 [project]
 name = "cz-keep-a-changelog-plugin"
 version = "0.0.4"
-description = "Full compliance with Keep a Changelog"
+description = "Full compliance of Commitizen with Keep a Changelog"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE"]
 
 authors = [
-    { name = "Corvin Lasogga", email = "c.lasogga@gmail.com" }
+  { name = "Corvin Lasogga (@CoLa5)" }
 ]
 
 keywords = ["commitizen", "cz", "conventional", "commits", "git", "keep-a-changelog"]
@@ -44,8 +44,15 @@ dev = [
     "mypy>=2.1.0",
     "pre-commit>=4.6.0",
     "pre-commit-uv>=4.2.1",
-    "pytest>=9.0.3",
     "ruff>=0.15.13",
+]
+docs = [
+    "pdoc>=16.0.0",
+]
+test = [
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "pytest-md-report>=0.8.0",
 ]
 
 [project.entry-points."commitizen.plugin"]
@@ -53,6 +60,7 @@ cz_keep_a_changelog_plugin = "cz_keep_a_changelog_plugin:CzKeepAChangelogPlugin"
 
 [project.urls]
 Homepage = "https://cola5.github.io/cz-keep-a-changelog-plugin/"
+Documentation = "https://cola5.github.io/cz-keep-a-changelog-plugin/"
 Code = "https://github.com/CoLa5/cz-keep-a-changelog-plugin"
 "Issue tracker" = "https://github.com/CoLa5/cz-keep-a-changelog-plugin/issues"
 
@@ -78,6 +86,14 @@ update_changelog_on_bump = true
 [tool.mypy]
 python_version = "3.10"
 strict = true
+
+[tool.pytest.ini_options]
+addopts = "--cov-report=xml --cov=cz_keep_a_changelog_plugin"
+log_cli = true
+log_cli_level = "WARN"
+md_report_color = "never"
+md_report_exclude_outcomes = ["skipped"]
+md_report_flavor = "github"
 
 [tool.ruff]
 fix = true
@@ -153,9 +169,6 @@ order-by-type = false
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
-
-[tool.typos.files]
-extend-exclude = ["requirements-dev.txt"]
 
 [tool.uv.build-backend]
 module-name = "cz_keep_a_changelog_plugin"

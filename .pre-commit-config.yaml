@@ -35,8 +35,6 @@ repos:
       - id: uv-export
         args:
           ["--frozen", "--no-dev", "--output-file=requirements.txt", "--quiet"]
-      - id: uv-export
-        args: ["--frozen", "--output-file=requirements-dev.txt", "--quiet"]
 
   - repo: https://github.com/tsvikas/sync-with-uv
     rev: v0.5.0

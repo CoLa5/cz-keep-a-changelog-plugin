@@ -3,12 +3,11 @@
 # mypy: disable-error-code=assignment
 # ruff: noqa: RUF012
 
-from collections import OrderedDict
-from collections.abc import Iterable
-from typing import Any, TypedDict
+from __future__ import annotations
 
-from commitizen import git
-from commitizen.config.base_config import BaseConfig
+from collections import OrderedDict
+from typing import Any, TYPE_CHECKING, TypedDict
+
 from commitizen.cz.conventional_commits.conventional_commits import (
     ConventionalCommitsCz,
 )
@@ -20,10 +19,16 @@ from commitizen.cz.utils import multiple_line_breaker
 from commitizen.defaults import MAJOR
 from commitizen.defaults import MINOR
 from commitizen.defaults import PATCH
-from commitizen.question import CzQuestion
 import jinja2 as j2
 
 from cz_keep_a_changelog_plugin.utils import replace_github_issues
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+
+    from commitizen import git
+    from commitizen.config.base_config import BaseConfig
+    from commitizen.question import CzQuestion
 
 
 class CzPluginSettings(TypedDict, total=False):
@@ -85,7 +90,7 @@ class CzKeepAChangelogPlugin(ConventionalCommitsCz):
     )
 
     def __init__(self, config: BaseConfig) -> None:
-        """Initializes the class.
+        """Initializes the plugin.
 
         Args:
             config: The base config of `commitizen`.
@@ -94,6 +99,7 @@ class CzKeepAChangelogPlugin(ConventionalCommitsCz):
         self.plugin_settings: CzPluginSettings = self.config.settings.get(
             "cz_keep_a_changelog_plugin", {}
         )
+        """The plugin settings set in TOML."""
 
     def changelog_hook(
         self,
@@ -131,7 +137,7 @@ class CzKeepAChangelogPlugin(ConventionalCommitsCz):
         self,
         message: dict[str, Any],
         commit: git.GitCommit,
-    ) -> dict[str, Any] | Iterable[dict[str, Any]] | None:
+    ) -> Iterable[dict[str, Any]] | dict[str, Any] | None:
         """Customizes the changelog message with extra information, like adding
         links.
 
@@ -143,7 +149,8 @@ class CzKeepAChangelogPlugin(ConventionalCommitsCz):
 
         Args:
             message: The message to customize.
-            commit: The original `GitCommit`.
+            commit: The original `GitCommit` which contains the following attrs:
+                `rev`, `title`, `body`, `author`, `author_email`.
 
         Returns:
             A customized message or a falsy value to ignore the commit.
