@@ -329,7 +329,7 @@ toml = [
 
 [[package]]
 name = "cz-keep-a-changelog-plugin"
-version = "0.0.4"
+version = "0.0.5"
 source = { editable = "." }
 dependencies = [
     { name = "commitizen" },
