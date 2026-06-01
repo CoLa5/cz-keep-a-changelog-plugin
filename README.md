@@ -47,21 +47,24 @@ Adds full compliance of
 
 ```bash
 # Install
-pip install cz_keep_a_changelog_plugin
+pip install cz-keep-a-changelog-plugin
 
 # Keep it updated
-pip upgrade cz_keep_a_changelog_plugin
+pip upgrade cz-keep-a-changelog-plugin
 ```
 
 **Using uv:**
 
 ```bash
 # Install
-uv install cz_keep_a_changelog_plugin
+uv install cz-keep-a-changelog-plugin
 
 # Keep it updated
-uv upgrade cz_keep_a_changelog_plugin
+uv upgrade cz-keep-a-changelog-plugin
 ```
+
+> [!IMPORTANT]  
+> Package name uses `-`!
 
 ## Usage
 
@@ -74,7 +77,14 @@ In the project's `pyproject.toml` set:
 
 [tool.commitizen]
 name = "cz_keep_a_changelog_plugin"
+...
+
+[tool.commitizen.cz_keep_a_changelog_plugin]
+issue_url_template = "https://cola5.github.io/cz-keep-a-changelog-plugin/issues/{{issue}}"
 ```
+
+> [!IMPORTANT]  
+> Plugin name uses `_`!
 
 ### Pre-Commit
 
@@ -87,25 +97,14 @@ repos:
     rev: main
     hooks:
       - id: commitizen
-        additional_dependencies: [cz_keep_a_changelog_plugin]
+        additional_dependencies:
+          - cz-keep-a-changelog-plugin==<VERSION>
         stages: [commit-msg]
       - id: commitizen-branch
-        additional_dependencies: [cz_keep_a_changelog_plugin]
+        additional_dependencies:
+          - cz-keep-a-changelog-plugin==<VERSION>
         stages: [pre-push]
 ```
 
-## Additional Settings
-
-In the project's `pyproject.toml`set the `issue_url_template` where `{{issue}}`
-will be replaced by the issue number:
-
-```toml
-...
-
-[tool.commitizen]
-name = "cz_keep_a_changelog_plugin"
-...
-
-[tool.commitizen.cz_keep_a_changelog_plugin]
-issue_url_template = "https://cola5.github.io/cz-keep-a-changelog-plugin/issues/{{issue}}"
-```
+> [!IMPORTANT]  
+> Package name uses `-`!
