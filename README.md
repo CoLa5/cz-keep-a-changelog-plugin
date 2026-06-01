@@ -18,7 +18,7 @@
 
 # Commitizen - Keep a Changelog-Plugin
 
-<img src="https://cola5.github.io/cz-keep-a-changelog-plugin/assets/logo.svg" title="cz-keep-a-changelog-plugin logo" />
+<img src="https://cola5.github.io/cz-keep-a-changelog-plugin/assets/logo.svg" title="cz-keep-a-changelog-plugin logo" width="50%" />
 
 Adds full compliance of
 [Commitizen](https://commitizen-tools.github.io/commitizen/) with
