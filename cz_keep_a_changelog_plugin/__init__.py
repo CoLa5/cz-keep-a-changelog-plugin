@@ -10,14 +10,9 @@
 ---
 """  # noqa: D212, D415
 
-# ruff: noqa: RUF067
-
-from cz_keep_a_changelog_plugin.utils import stop_circular_import
-
-with stop_circular_import():
-    from cz_keep_a_changelog_plugin.cz_keep_a_changelog_plugin import (
-        CzKeepAChangelogPlugin,
-    )
+from cz_keep_a_changelog_plugin.cz_keep_a_changelog_plugin import (
+    CzKeepAChangelogPlugin,
+)
 from cz_keep_a_changelog_plugin.version import (
     CZ_KEEP_A_CHANGELOG_PLUGIN_VERSION,
 )

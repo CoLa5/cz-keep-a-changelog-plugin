@@ -1,15 +1,8 @@
 """Utils."""
 
-from __future__ import annotations
-
-import contextlib
 import re
-from typing import TYPE_CHECKING
 
 import jinja2 as j2
-
-if TYPE_CHECKING:
-    from collections.abc import Iterator
 
 MD_LINK_PATTERN: re.Pattern[str] = re.compile(r"\[[^\]]*\]\([^)]+\)")
 GH_ISSUE_PATTERN: re.Pattern[str] = re.compile(r"(?<!\w)#(?P<issue_num>\d+)\b")
@@ -62,19 +55,3 @@ def replace_github_issues(
 
     out.append(text[i_text:])
     return "".join(out)
-
-
-@contextlib.contextmanager
-def stop_circular_import() -> Iterator[None]:
-    """Stops circular import because of `commitizen`s plugin discovery.
-
-    Yields:
-        `None`
-    """
-    with contextlib.suppress(AttributeError):
-        import commitizen
-    yield
-
-    import commitizen.cz
-
-    assert "cz_keep_a_changelog_plugin" in commitizen.cz.registry

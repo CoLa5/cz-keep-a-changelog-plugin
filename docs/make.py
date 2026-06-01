@@ -7,6 +7,7 @@ import shutil
 import textwrap
 from typing import Final
 
+import commitizen  # noqa: F401
 import pdoc.render
 
 import cz_keep_a_changelog_plugin
