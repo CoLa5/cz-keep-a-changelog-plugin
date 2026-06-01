@@ -13,6 +13,7 @@ and this project adheres to [PEP 440](https://peps.python.org/pep-0440/).
 
 ### Added
 
+- Include plugin setting type in __all__
 - Add __version__, __license__ and stop circular import in __init__.py
 
 ### Changed
