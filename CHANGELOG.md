@@ -9,6 +9,20 @@ and
 the format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [PEP 440](https://peps.python.org/pep-0440/).
 
+## [Unreleased]
+
+### Added
+
+- Add __version__, __license__ and stop circular import in __init__.py
+
+### Changed
+
+- Adds TYPE_CHECKING-based imports
+
+### Fixed
+
+- Fix issue of circular imports in docs/make.py
+
 ## [0.0.4] - 2026-05-16
 
 ### Fixed
